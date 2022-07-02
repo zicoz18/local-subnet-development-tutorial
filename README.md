@@ -6,7 +6,7 @@ If you are not familiar with subnets, virtual machines or similar terminology yo
 
 This tutorial's goal is to deploy and start a basic subnet in your local machine. So that you can interact with the subnet using [Remix](https://remix.ethereum.org/) and [Hardhat](https://hardhat.org/). In this tutorial we will be using [avalanche-cli](https://github.com/ava-labs/avalanche-cli) to create and deploy the subnet. If you ever encounter an error, refer to [Troubleshoot Common Issues](#troubleshoot-common-issues) section.
 
-> avalanche-cli is in beta version. So it might get updated fairly frequently. It is best to refer to latest version from it's [github page](https://github.com/ava-labs/avalanche-cli).
+> avalanche-cli is in beta version. So it might get updated fairly frequently. It is best to refer to the latest version from its [github page](https://github.com/ava-labs/avalanche-cli).
 
 If you want to customize your subnet you can refer to the optional [Customize the Subnet](#customize-the-subnet) section, while creating your subnet.
 
@@ -29,7 +29,7 @@ Steps to follow:
 
 ## Step 1: Install avalanche-cli
 
-To build avalanche-cli you have to first install golang since, avalanche-cli is written in golang. Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
+To build avalanche-cli you have to first install golang since avalanche-cli is written in golang. Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
 
 After downloading golang, to download avalanche-cli's latest version, run:
 
@@ -46,7 +46,7 @@ cd bin
 export PATH=$PWD:$PATH
 ```
 
-> This command will add avalanche-cli to the PATH temporarily, which means that, when you reopen your terminal you would not be able run 'avalanche' command. So, to add it permanantly refer to [Add Avalanche Command Permanently](#add-avalanche-command-permanently) section.
+> This command will add avalanche-cli to the PATH temporarily, which means that, when you reopen your terminal you would not be able to run 'avalanche' command. So, to add it permanantly refer to [Add Avalanche Command Permanently](#add-avalanche-command-permanently) section.
 
 #### Installing in Custom Location
 
@@ -74,7 +74,7 @@ To add avalanche command to your path:
 2. Add this line, `export PATH="<path-of-avalanche-bin-directory>:${PATH}"` to the file.
 3. Restart the terminal and run `avalanche`.
 
-> If you have ran the installation command at `$HOME` directory. `<path-of-avalanche-bin-directory>` would be `${HOME}/bin`
+> If you have run the installation command at `$HOME` directory. `<path-of-avalanche-bin-directory>` would be `${HOME}/bin`
 
 ## Step 2: Create the subnet
 
@@ -116,7 +116,7 @@ To deploy the subnet locally, run:
 avalanche subnet deploy <subnetName> -l
 ```
 
-After a successfull deployment, an example of what you would see:
+After a successful deployment, an example of what you would see:
 
 ```
 Network ready to use. Local network node endpoints:
@@ -152,7 +152,7 @@ To start running the subnet, you could run:
 avalanche network start
 ```
 
-> Do not worry, when you restart the subnet rpc urls would not change. Therefore, you do not have to adjust the network in your metamask or anywhere else.
+> Do not worry, when you restart the subnet rpc urls will not change. Therefore, you do not have to adjust the network in your metamask or anywhere else.
 
 ## Step 4: Interact with the Subnet
 
@@ -185,7 +185,7 @@ If you followed the exact steps in this tutorial, you would see that your balanc
 
 ### Step 4.2: Using Hardhat
 
-To interact with the subnet using Hardhat, refer to [Using Hardhat with the Avalanche C-Chain](https://docs.avax.network/dapps/smart-contracts/using-hardhat-with-the-avalanche-c-chain). It is very similar to interacting with C-Chain. You only have change `hardhat.config.ts` file. Inside that file, find the exported js object and inside of it find `networks`. Add a new network which will be your subnet.
+To interact with the subnet using Hardhat, refer to [Using Hardhat with the Avalanche C-Chain](https://docs.avax.network/dapps/smart-contracts/using-hardhat-with-the-avalanche-c-chain). It is very similar to interacting with C-Chain. You only have to change `hardhat.config.ts` file. Inside that file, find the exported js object and inside of it find `networks`. Add a new network which will be your subnet.
 
 ```
 subnet: {
@@ -228,11 +228,11 @@ This tutorial will show how to interact with them using Remix.
 
 #### General steps to interact with precompiles
 
-1. While creating the subnet you will be prompted `Advanced: Would you like to add a custom precompile to modify the EVM?:` answer `Yes` then choose the precompile you would like to add. Make sure to add your address as admin by following `Add admin` and entering your address. Do not forget that you can always get more details by selecting `More info` inside command line.
+1. While creating the subnet you will be prompted `Advanced: Would you like to add a custom precompile to modify the EVM?:` answer `Yes` then choose the precompile you would like to add. Make sure to add your address as admin by following `Add admin` and entering your address. Do not forget that you can always get more details by selecting `More info` inside the command line.
 
    > If you are adding the `Transaction allow list` precompile, make sure to add the airdrop reciever address as admin so that the address with funds could send transactions.
 
-2. Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`. Then, create a solidity file with respective recommended file name and add the respective precompile interface, refer to specific precompile to see details.
+2. Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and the remix's environment is using `Injected Web3`. Then, create a solidity file with respective recommended file name and add the respective precompile interface, refer to specific precompile to see details.
 
 3. Load precompile to the respective address, refer to specific precompile to see their addresses.
 4. Call precompile functions
@@ -365,10 +365,10 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 
 ## Customize the Subnet
 
-- `VM`: To understand what VMs are you can refer to [this](https://docs.avax.network/subnets#virtual-machines). To creat your custom VM you can refer to [this](https://docs.avax.network/subnets/create-a-virtual-machine-vm).
+- `VM`: To understand what VMs are you can refer to [this](https://docs.avax.network/subnets#virtual-machines). To create your custom VM you can refer to [this](https://docs.avax.network/subnets/create-a-virtual-machine-vm).
 - `ChainId`: You want your `ChainId` parameter to be unique. To make sure that your subnet is secure against replay attacks. To see registered `ChainIds` you can check [chainlist.org](https://chainlist.org/). At the top right of the site make sure to turn on the button to include testnets.
 - `Gas Parameters`: Ava Labs recommends the low-low option and C-Chain currently uses this option. But, if you know what you are doing you are free to customize. Note that higher disk usage has some trade offs, it would require more processing power and cause it to be more expensive to maintain.
-- `Airdrop Address`: You would not like to use the default address in production, that is recieving the 1 million tokens. Because it is a compromised wallet, which means that it's private key is well known by others. If you add a custom address to recieve airdrop. Avalanche-cli will ask you to give amount in AVAX, in that case do not enter the value thinking as in `ether` but in `gwei` to correctly airdrop the amount you want. As an example, to airdrop `1` whole token, as in one ether, you would enter the value `1000000000`.
+- `Airdrop Address`: You would not like to use the default address in production, that is recieving the 1 million tokens. Because it is a compromised wallet, which means that its private key is well known by others. If you add a custom address to recieve airdrop. Avalanche-cli will ask you to give an amount in AVAX, in that case do not enter the value thinking as in `ether` but in `gwei` to correctly airdrop the amount you want. As an example, to airdrop `1` whole token, as in one ether, you would enter the value `1000000000`.
 - `Precompiles`: You can learn what precompiles are by refering to [this](https://docs.avax.network/subnets/customize-a-subnet#precompiles).
 
 ## Troubleshoot Common Issues
@@ -379,8 +379,8 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
   - `"command not found: avalanche"`
     It means that `avalanche` command is not added to the PATH environment variable. It could be caused by following reasons;
     - You have added the wrong `bin` directory to your environment variables.
-      - Make sure to find where `bin` directory is and run `export PATH=$PWD:$PATH` inside the `bin` directory.
-    - You have added it to PATH environment variable temporarily and restarted your terminal.
+      - Make sure to find where the `bin` directory is and run `export PATH=$PWD:$PATH` inside the `bin` directory.
+    - You have added it to the PATH environment variable temporarily and restarted your terminal.
       - You can either add the `bin` directory to the PATH environment variable again by running `export PATH=$PWD:$PATH` inside the downloaded `bin` directory or you can refer to [Add Avalanche Command Permanently](#add-avalanche-command-permanently)
 
 ### Step 2: Create the Subnet
@@ -395,15 +395,15 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 - `avalanche subnet deploy <subnetName> -l`
 
   - `"Error: failed to query network health: ..."`
-    You can check to logs which are located at `$HOME/.avalanche-cli/logs` or try to run the command once more.
+    You can check logs which are located at `$HOME/.avalanche-cli/logs` or try to run the command once more.
 
   - `"Error: failed to start network : ..."`
-    It means that you have deployed a subnet before and trying to deploy another one without stopping the initial one. To solve this issue, run:
+    It means that you have deployed a subnet before and are trying to deploy another one without stopping the initial one. To solve this issue, run:
     `avalanche network stop` and try to deploy your subnet again.
 
 ### Step 4: Interact with the subnet
 
-- Errors are generally covered in the linked tutorials be sure to check them out.
+- Errors are generally covered in the linked tutorials. Be sure to check them out.
 - When you try to interact with the subnet you might try to interact with an account that has no balance. Make sure that you have followed [Access Funded Accounts](#access-funded-accounts). If you are having a problem interacting using Hardhat, make sure that the private key corresponds to an account which has balance.
 
 ### Step 5: Interact with precompiles (Optional)
@@ -423,5 +423,7 @@ In this tutorial, we learned:
 * Installing and using avalanche-cli
 * Creating a subnet and customizing it
 * Deploy the subnet locally for local development
-* Interacting with locally deployd subnet using Remix and hardhat
-* Optinally we learned how to interact with precompiles
+* Interacting with locally deployed subnet using Remix and hardhat
+* Optionally we learned how to interact with precompiles
+
+

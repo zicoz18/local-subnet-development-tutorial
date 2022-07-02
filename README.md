@@ -2,9 +2,6 @@
 
 If you are not familiar with subnets, virtual machines or similar terminology you can refer to [Subnet Overview](https://docs.avax.network/subnets).
 
-// TODO: Conclusion kısmı ekle
-
-
 ## Introduction
 
 This tutorial's goal is to deploy and start a basic subnet in your local machine. So that you can interact with the subnet using [Remix](https://remix.ethereum.org/) and [Hardhat](https://hardhat.org/). In this tutorial we will be using [avalanche-cli](https://github.com/ava-labs/avalanche-cli) to create and deploy the subnet. If you ever encounter an error, refer to [Troubleshoot Common Issues](#troubleshoot-common-issues) section.
@@ -415,3 +412,16 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
   - For `Contract Deployer Allow List`, refer to [this](https://docs.avax.network/subnets/customize-a-subnet#restricting-smart-contract-deployers).
   - For `Transaction Allow List`, refer to [this](https://docs.avax.network/subnets/customize-a-subnet#restricting-who-can-submit-transactions).
   - For `Native Minter`, refer to [this](https://docs.avax.network/subnets/customize-a-subnet#minting-native-coins).
+  
+
+## Conclusion
+
+That is it! That is how you could create and deploy your local subnet from scratch.
+
+In this tutorial, we learned:
+
+* Installing and using avalanche-cli
+* Creating a subnet and customizing it
+* Deploy the subnet locally for local development
+* Interacting with locally deployd subnet using Remix and hardhat
+* Optinally we learned how to interact with precompiles

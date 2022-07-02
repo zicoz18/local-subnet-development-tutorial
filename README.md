@@ -3,13 +3,11 @@
 If you are not familiar with subnets, virtual machines or similar terminology you can refer to [Subnet Overview](https://docs.avax.network/subnets).
 
 // TODO: Conclusion kısmı ekle
-// TODO: Table of contents ekle
-// TODO: Sayfa içindeki linklerin çalışmasını sağla
-// TODO: Cheatsheet, genel adımlar vs diye bölebilirsin. Common Errors diye bir section oluşturulabilir ve belli command'lere göre common error çözümleri sunulabilir
+
 
 ## Introduction
 
-This tutorial's goal is to deploy and start a basic subnet in your local machine. So that you can interact with the subnet using [Remix](https://remix.ethereum.org/) and [Hardhat](https://hardhat.org/). In this tutorial we will be using [avalanche-cli](https://github.com/ava-labs/avalanche-cli), to create and deploy the subnet. If you ever encounter an error refer to [Troubleshoot Common Issues](#troubleshoot-common-issues) section.
+This tutorial's goal is to deploy and start a basic subnet in your local machine. So that you can interact with the subnet using [Remix](https://remix.ethereum.org/) and [Hardhat](https://hardhat.org/). In this tutorial we will be using [avalanche-cli](https://github.com/ava-labs/avalanche-cli) to create and deploy the subnet. If you ever encounter an error, refer to [Troubleshoot Common Issues](#troubleshoot-common-issues) section.
 
 > avalanche-cli is in beta version. So it might get updated fairly frequently. It is best to refer to latest version from it's [github page](https://github.com/ava-labs/avalanche-cli).
 
@@ -34,7 +32,7 @@ Steps to follow:
 
 ## Step 1: Install avalanche-cli
 
-To build Avalanche-cli you have to first install golang because Avalanche-cli is written in golang. Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
+To build avalanche-cli you have to first install golang since, avalanche-cli is written in golang. Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
 
 After downloading golang, to download avalanche-cli's latest version, run:
 
@@ -141,9 +139,9 @@ Currency Symbol:  TEST
 
 Make sure to save `Metamask connection details`. You will need the relevant information (RPC URL, Funded address, etc.) to interact with your subnet
 
-Important thing to keep in mind is that, now that you have deployed your subnet it has started running in your local machine. So, after you are done interacting with your subnet you can stop running it and when you want to interact with it again, you can start running it without losing the state of the subnet.
+Important thing to keep in mind is that, now that you have deployed your subnet it has started running in your local machine. So, after you are done interacting with your subnet you can stop running it and when you want to interact with it again, you can start running it.
 
-To stop running the subnet, run:
+To stop running the subnet, you could run:
 
 ```
 avalanche network stop
@@ -151,7 +149,7 @@ avalanche network stop
 
 > Do not worry, when you stop running the subnet it will save the state of the subnet and when it starts again it will continue from that state.
 
-To start running the subnet, run:
+To start running the subnet, you could run:
 
 ```
 avalanche network start
@@ -219,7 +217,7 @@ yarn deploy --network subnet
 
 ### Step 5: Interact with precompiles (Optional)
 
-If you have followed the tutorial as it is, you do not need this part. Since in this tutorial we did not add any precompiles to the subnet. Therefore, this step is optional and helpful only if you are trying to extend your subnet with precompiles.
+If you have followed the tutorial as it is, you do not need this part. Since, in this tutorial we did not add any precompiles to the subnet. Therefore, this step is optional and helpful only if you are trying to extend your subnet with precompiles.
 
 To checkout current precompiles provided by Ava Labs refer to [this](https://docs.avax.network/subnets/customize-a-subnet#precompiles). There are 3 precompiles shared by Ava Labs at the time this documentation is written.
 
@@ -229,8 +227,7 @@ To checkout current precompiles provided by Ava Labs refer to [this](https://doc
 
 This tutorial will show how to interact with them using Remix.
 
-> Before trying to interact with any of the precompiles be sure to add them while [creating the subnet](#step-2-create-the-subnet). By following the option below;
-> `Would you like to add a precompile to modify the EVM: Yes`
+> Before trying to interact with any of the precompiles make sure to add them while [creating the subnet](#step-2-create-the-subnet). You can not add them afterwards.
 
 #### General steps to interact with precompiles
 
@@ -246,6 +243,7 @@ This tutorial will show how to interact with them using Remix.
 ##### Interact with Contract Deployer Allow List
 
 Recommended file name: `IAllowList.sol`
+
 Precompile Interface:
 
 ```
@@ -286,6 +284,7 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 ##### Interact with Transaction Allow List
 
 Recommended file name: `ITxAllowList.sol`
+
 Precompile interface:
 
 ```
@@ -326,6 +325,7 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 ##### Interact with Native Minter
 
 Recommended file name: `INativeMinter.sol`
+
 Precompile interface:
 
 ```

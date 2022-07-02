@@ -2,6 +2,7 @@
 
 If you are not familiar with subnets, virtual machines or similar terminology you can refer to [Subnet Overview](https://docs.avax.network/subnets).
 
+// TODO: Conclusion kısmı ekle
 // TODO: Table of contents ekle
 // TODO: Sayfa içindeki linklerin çalışmasını sağla
 // TODO: Cheatsheet, genel adımlar vs diye bölebilirsin. Common Errors diye bir section oluşturulabilir ve belli command'lere göre common error çözümleri sunulabilir
@@ -20,8 +21,11 @@ Steps to follow:
 2. Create the subnet
 3. Deploy the subnet
 4. Interact with the subnet
+
    4.1 Using Remix
+
    4.2 Using Hardhat
+
 5. Interact with precompiles (Optional)
 
 ## Requirements
@@ -230,18 +234,19 @@ This tutorial will show how to interact with them using Remix.
 
 #### General steps to interact with precompiles
 
-Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`.
+1. While creating the subnet you will be prompted `Advanced: Would you like to add a custom precompile to modify the EVM?:` answer `Yes` then choose the precompile you would like to add. Make sure to add your address as admin by following `Add admin` and entering your address. Do not forget that you can always get more details by selecting `More info` inside command line.
 
-Create a solidity file
-put precompile's interface code
-load precompile to an address
-call functions
+   > If you are adding the `Transaction allow list` precompile, make sure to add the airdrop reciever address as admin so that the address with funds could send transactions.
+
+2. Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`. Then, create a solidity file with respective recommended file name and add the respective precompile interface, refer to specific precompile to see details.
+
+3. Load precompile to the respective address, refer to specific precompile to see their addresses.
+4. Call precompile functions
 
 ##### Interact with Contract Deployer Allow List
 
-Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`.
-
-Create a `IAllowList.sol` file and put the following code inside:
+Recommended file name: `IAllowList.sol`
+Precompile Interface:
 
 ```
 // (c) 2022-2023, Ava Labs, Inc. All rights reserved.
@@ -266,7 +271,7 @@ interface AllowListInterface {
 }
 ```
 
-Load this interface at the address `0x0200000000000000000000000000000000000000`.
+Precompile address: `0x0200000000000000000000000000000000000000`
 
 There are 2 main roles for Contract Deployer Allow List precompile; `Admin` and `Deployer`.
 
@@ -280,9 +285,8 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 
 ##### Interact with Transaction Allow List
 
-Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`.
-
-Create a `ITxAllowList.sol` file and put the following code inside:
+Recommended file name: `ITxAllowList.sol`
+Precompile interface:
 
 ```
 // (c) 2022-2023, Ava Labs, Inc. All rights reserved.
@@ -307,7 +311,7 @@ interface AllowListInterface {
 }
 ```
 
-Load this interface at the address `0x0200000000000000000000000000000000000002`.
+Precompile address: `0x0200000000000000000000000000000000000002`
 
 There are 2 main roles for Transaction Deployer Allow List precompile; `Admin` and `Allowed`.
 
@@ -317,13 +321,12 @@ There are 2 main roles for Transaction Deployer Allow List precompile; `Admin` a
 - `Allowed`
   - Can send transactions
 
-To check the role of an address run `readAllowList` function. It returns 0, 1 or 2, corresponding to the roles `None`, `Minter`, and `Admin` respectively.
+To check the role of an address run `readAllowList` function. It returns 0, 1 or 2, corresponding to the roles `None`, `Allowed`, and `Admin` respectively.
 
 ##### Interact with Native Minter
 
-Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`.
-
-Create a `INativeMinter.sol` file and put the following code inside:
+Recommended file name: `INativeMinter.sol`
+Precompile interface:
 
 ```
 // (c) 2022-2023, Ava Labs, Inc. All rights reserved.
@@ -351,7 +354,7 @@ interface NativeMinterInterface {
 }
 ```
 
-Load this interface at the address `0x0200000000000000000000000000000000000001`.
+Precompile address: `0x0200000000000000000000000000000000000001`
 
 There are 2 main roles for NativeMinter precompile; `Admin` and `Minter`.
 
@@ -403,4 +406,12 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 
 ### Step 4: Interact with the subnet
 
-When you try to interact with the subnet you might try to interact with an account that has no balance. Make sure that you have followed [Access Funded Accounts](#access-funded-accounts). If you are having a problem interacting using Hardhat, make sure that the private key corresponds to an account which has balance.
+- Errors are generally covered in the linked tutorials be sure to check them out.
+- When you try to interact with the subnet you might try to interact with an account that has no balance. Make sure that you have followed [Access Funded Accounts](#access-funded-accounts). If you are having a problem interacting using Hardhat, make sure that the private key corresponds to an account which has balance.
+
+### Step 5: Interact with precompiles (Optional)
+
+- Common issues are troubleshooted at the official avalanche docs, to check them out refer to [this](https://docs.avax.network/subnets/customize-a-subnet#precompiles).
+  - For `Contract Deployer Allow List`, refer to [this](https://docs.avax.network/subnets/customize-a-subnet#restricting-smart-contract-deployers).
+  - For `Transaction Allow List`, refer to [this](https://docs.avax.network/subnets/customize-a-subnet#restricting-who-can-submit-transactions).
+  - For `Native Minter`, refer to [this](https://docs.avax.network/subnets/customize-a-subnet#minting-native-coins).

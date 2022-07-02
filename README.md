@@ -1,12 +1,14 @@
 # Set up your development environment for local subnet development
-// TODO: Table ıof contents ekle
 If you are not familiar with subnets, virtual machines or similar terminology you can refer to [Subnet Overview](https://docs.avax.network/subnets).
 
-TODO: Cheatsheet, genel adımlar vs diye bölebilirsin. Common Errors diye bir section oluşturulabilir ve belli command'lere göre common error çözümleri sunulabilir
+
+// TODO: Table of contents ekle
+// TODO: Sayfa içindeki linklerin çalışmasını sağla
+// TODO: Cheatsheet, genel adımlar vs diye bölebilirsin. Common Errors diye bir section oluşturulabilir ve belli command'lere göre common error çözümleri sunulabilir
 
 ## Introduction
 
-This tutorial's goal is to deploy and start a basic subnet in your local machine. So that you can interact with the subnet using [Remix](https://remix.ethereum.org/) and [Hardhat](https://hardhat.org/). In this tutorial we will be using [avalanche-cli](https://github.com/ava-labs/avalanche-cli), to create and deploy the subnet. If you ever encounter an error refer to [Troubleshoot Common Issues](##Troubleshoot-Common-Issues) section.
+This tutorial's goal is to deploy and start a basic subnet in your local machine. So that you can interact with the subnet using [Remix](https://remix.ethereum.org/) and [Hardhat](https://hardhat.org/). In this tutorial we will be using [avalanche-cli](ffhttps://github.com/ava-labs/avalanche-cli), to create and deploy the subnet. If you ever encounter an error refer to [Troubleshoot Common Issues](##Troubleshoot-Common-Issues) section.
 > avalanche-cli is in beta version. So it might get updated fairly frequently. It is best to refer to latest version from it's [github page](https://github.com/ava-labs/avalanche-cli).
 
 If you want to customize your subnet you can refer to the optional [Customize the Subnet](##Customize-the-Subnet) section, while creating your subnet.
@@ -16,7 +18,9 @@ Steps to follow:
 2. Create the subnet 
 3. Deploy the subnet
 4. Interact with the subnet
-
+  4.1 Using Remix
+  4.2 Using Hardhat
+5. Interact with precompiles (Optional)
 ## Requirements
 
 - Mac or Linux environment
@@ -28,9 +32,7 @@ After downloading golang, to download avalanche-cli's latest version, run:
 ````
 curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s
 ````
->This command will download the bin to the `./` (relative  to where the command has run).
-
->To download in a custom location go to [Installing in Custom Location](###Installing-in-custom-location).
+>This command will download the bin to the `./` (relative  to where the command has run). To download in a custom location refer to [Installing in Custom Location](###Installing-in-custom-location).
 
 
 
@@ -42,15 +44,15 @@ export PATH=$PWD:$PATH
 > This command will add avalanche-cli to the PATH temporarily, which means that, when you reopen your terminal you would not be able run 'avalanche' command. So, to add it permanantly refer to [Add Avalanche Command Permanently](###Add-Avalanche-Command-Permanently) section.
 
 #### Installing in Custom Location
-To download binary to a specific directory, run:
+To download the binary to a specific directory, run:
 ```
-curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s -- -b <relative directory>
+curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s -- -b <relative-directory>
 ```
 
 #### Add Avalanche Command Permanently
 To add avalanche command to your path:
 
-##### MacOs
+##### MacOS
 1. Open shell config file.
     * If you are using `zsh` shell, open `${HOME}/.zprofile` in a text editor.
     * If you are suing `bash` shell, open `${HOME}/.bash_profile` in a text editor.
@@ -64,28 +66,28 @@ To add avalanche command to your path:
 
 >If you have ran the installation command at `$HOME` directory. `<path-of-avalanche-bin-directory>` would be `${HOME}/bin`
 
-//TODO: Step 1 için karşılaşılan error'leri çözebilmesi için step1 trouble shooting diye section'a linkle
+
 ## Step 2: Create the subnet 
 
 To create the subnet, run:
 ```
 avalanche subnet create <subnetName>
 ```
-// TODO: Bunun içindeki command'leri daha görünebilir hale gelitr
->If you are getting an error, that might be because you have already created a subnet with the same name. To check if that is the case, you can run `avalanche subnet list` which would list the subnets you have. If you have a subnet with the same name, you can try to create with a different name, delete the existing subnet by running `avalanche subnet delete <subnetName>` or overwrite the existing one by running `avalanche subnet create <subnetName> --force`
+When you run this command you will be walked through the customization of the subnet. You can learn more about the configuration details at [Customize the Subnet](###Customize-the-Subnet) section.
 
-When you run this command you will be walked through the customization of the subnet. You can learn more about the configuration details at [Subnet Customization Options](###Subnet-Custimization-Options) section.
 
-//TODO: Parametreleri highlight2la
 Example walk through: 
-* Choose your VM: SubnetEVM
-* ChainId: 676767
-* How would you like to set the fees: Low disk use...
-* How would you like to distribute the funds: Airdrop 1 million tokens to the default address
-* Would you like to add a precompile to modify the EVM: No
+* `Choose your VM`: SubnetEVM
+* `ChainId`: 676767
+* `How would you like to set the fees`: Low disk use...
+* `How would you like to distribute the funds`: Airdrop 1 million tokens to the default address
+* `Would you like to add a precompile to modify the EVM`: No
 
-You have successfully created the [genesis](https://docs.avax.network/subnets/customize-a-subnet#genesis) file of your subnet. 
-To see details run:
+You have successfully created the genesis file for your subnet. You can read more about genesis [here](https://docs.avax.network/subnets/customize-a-subnet#genesis).
+
+
+
+To see details about the subnet, run:
 ````
 avalanche subnet describe <subnetName>
 ```` 
@@ -99,15 +101,6 @@ To deploy the subnet locally, run:
 ````
 avalanche subnet deploy <subnetName> -l
 ````
-
->If you get an error, "Error: failed to query network health: ..."
-You can check to logs which are located at `$HOME/.avalanche-cli/logs` or try to run the command once more.
-
->If you get an error, "Error: failed to start network : ..."
-It means that you have deployed a subnet before and trying to deploy another one without stopping the initial one. To solve this issue, run:
-`avalanche network stop` and try to deploy your subnet again.
-
-
 After a successfull deployment, an example of what you would see:
 ```
 Network ready to use. Local network node endpoints:
@@ -125,13 +118,29 @@ Chain ID:         676767
 Currency Symbol:  TEST
 ```
 
-Make sure to save `Metamask connection details`. You will need them to interact with your subnet
+Make sure to save `Metamask connection details`. You will need the relevant information (RPC URL, Funded address, etc.) to interact with your subnet
 
-## Step 4: Interact With the Subnet
+
+Important thing to keep in mind is that, now that you have deployed your subnet it has started running in your local machine. So, after you are done interacting with your subnet you can stop running it and when you want to interact with it again, you can start running it without losing the state of the subnet.
+
+To stop running the subnet, run: 
+```
+avalanche network stop
+```
+>Do not worry, when you stop running the subnet it will save the state of the subnet and when it starts again it will continue from that state.
+
+To start running the subnet, run: 
+```
+avalanche network start
+```
+>Do not worry, when you restart the subnet rpc urls would not change. Therefore, you do not have to adjust the network in your metamask or anywhere else.
+
+## Step 4: Interact with the Subnet
 This tutorial will cover interacting with the subnet through [Remix](https://remix.ethereum.org/) and [Hardhat](https://hardhat.org/).
 
-### Using Remix
-Firstly, we will be adding our subnet to [metamask](https://metamask.io/). To add the subnet, refer to [Deploy a Smart Contract on Your Subnet EVM Using Remix and Metamask](https://docs.avax.network/subnets/deploy-a-smart-contract-on-your-evm#step-1-setting-up-metamask) you should replace the values with your subnet values that are printed out after you have created it.
+### Step 4.1: Using Remix
+Firstly, we will be adding our subnet to [metamask](https://metamask.io/). To add the subnet, refer to [Deploy a Smart Contract on Your Subnet EVM Using Remix and Metamask](https://docs.avax.network/subnets/deploy-a-smart-contract-on-your-evm#step-1-setting-up-metamask) you should replace the values with your subnet values that are printed out after you have created it. If your balance is zero after you add subnet to the metamask, refer to [Access Funded Accounts](####Access-Founded-Accounts).
+
 Example Values:
 ````
 Network Name: <subnetName>
@@ -140,16 +149,10 @@ ChainID: 676767
 Symbol: TEST
 ````
 
-:::note
-If you followed the exact steps in this tutorial, you would see that your balance on metamask is zero. That is because we have only airdropped to the default account which is `0x8db97C7cEcE249c2b98bDC0226Cc4C2A57BF52FC`. Therefore, your account on metamask has zero tokens and cannot send any transactions. So, to interact with the chain we have to use the address that is airdropped. If your balance is zero, refer to [Access Funded Accounts](####Access-Founded-Accounts).
-:::
-
-
 #### Access Funded Accounts
-Make sure that metamask is configured to use your subnet. 
-> If you have customized the subnet and have tokens on your account you can skip the "Import the airdropped account" part
+If you followed the exact steps in this tutorial, you would see that your balance on metamask is zero. That is because we have only airdropped to the default account which is `0x8db97C7cEcE249c2b98bDC0226Cc4C2A57BF52FC`. Therefore, your account on metamask has zero tokens and cannot send any transactions. So, to interact with the chain we have to use the address that is airdropped.
 
-* Import the airdropped account
+* Steps to import the airdropped account
   1. Open your metamask extension
   2. Click on the account image
   3. Click "Import Account"
@@ -158,7 +161,7 @@ Make sure that metamask is configured to use your subnet.
   6. Click "Import"
 
 
-### Using Hardhat
+### Step 4.2: Using Hardhat
 To interact with the subnet using Hardhat, refer to [Using Hardhat with the Avalanche C-Chain](https://docs.avax.network/dapps/smart-contracts/using-hardhat-with-the-avalanche-c-chain). It is very similar to interacting with C-Chain. You only have change `hardhat.config.ts` file. Inside that file, find the exported js object and inside of it find `networks`. Add a new network which will be your subnet.
 ```
 subnet: {
@@ -183,14 +186,152 @@ Example command:
 yarn deploy --network subnet
 ```
 
-//TODO: 
-add explanations for 
-avalanche network stop and avalanche network start
+### Step 5: Interact with precompiles (Optional)
+If you have followed the tutorial as it is, you do not need this part. Since in this tutorial we did not add any precompiles to the subnet. Therefore, this step is optional and helpful only if you are trying to extend your subnet with precompiles.
+
+To checkout current precompiles provided by Ava Labs refer to [this](https://docs.avax.network/subnets/customize-a-subnet#precompiles). There are 3 precompiles shared by Ava Labs at the time this documentation is written.
+
+  * [Contract Deployer Allow List](https://docs.avax.network/subnets/customize-a-subnet#restricting-smart-contract-deployers): restricts the addresses who can deploy contracts
+  * [Transaction Allow List](https://docs.avax.network/subnets/customize-a-subnet#restricting-who-can-submit-transactions): restricts the addresses who can send transactions
+  * [Native Minter](https://docs.avax.network/subnets/customize-a-subnet#minting-native-coins): allows given addresses to mint native token
+
+This tutorial will show how to interact with them using Remix.
+
+>Before trying to interact with any of the precompiles be sure to add them while [creating the subnet](##Step-2:-Create-the-subnet).  By following the option below;
+`Would you like to add a precompile to modify the EVM: Yes`
+
+#### General steps to interact with precompiles
+Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`.
+
+Create a solidity file
+put precompile's interface code
+load precompile to an address
+call functions
+
+
+##### Interact with Contract Deployer Allow List
+Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`.
+
+Create a `IAllowList.sol` file and put the following code inside:
+```
+// (c) 2022-2023, Ava Labs, Inc. All rights reserved.
+// See the file LICENSE for licensing terms.
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.0;
+
+interface AllowListInterface {
+    // Set [addr] to have the admin role over the allow list
+    function setAdmin(address addr) external;
+
+    // Set [addr] to be enabled on the allow list
+    function setEnabled(address addr) external;
+
+    // Set [addr] to have no role over the allow list
+    function setNone(address addr) external;
+
+    // Read the status of [addr]
+    function readAllowList(address addr) external view returns (uint256);
+}
+```
+Load this interface at the address `0x0200000000000000000000000000000000000000`.
+
+There are 2 main roles for Contract Deployer Allow List precompile; `Admin` and `Deployer`.
+* `Admin` 
+  * Can add new admins and deployers
+  * Can deploy contracts
+* `Deployer`
+  * Can deploy contracts
+
+To check the role of an address run `readAllowList` function. It returns 0, 1 or 2, corresponding to the roles `None`, `Deployer`, and `Admin` respectively.
+
+##### Interact with Transaction Allow List
+Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`.
+
+Create a `ITxAllowList.sol` file and put the following code inside:
+```
+// (c) 2022-2023, Ava Labs, Inc. All rights reserved.
+// See the file LICENSE for licensing terms.
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.0;
+
+interface AllowListInterface {
+    // Set [addr] to have the admin role over the allow list
+    function setAdmin(address addr) external;
+
+    // Set [addr] to be enabled on the allow list
+    function setEnabled(address addr) external;
+
+    // Set [addr] to have no role over the allow list
+    function setNone(address addr) external;
+
+    // Read the status of [addr]
+    function readAllowList(address addr) external view returns (uint256);
+}
+```
+Load this interface at the address `0x0200000000000000000000000000000000000002`.
+
+There are 2 main roles for Transaction Deployer Allow List precompile; `Admin` and `Allowed`.
+* `Admin` 
+  * Can add new admins and alloweds
+  * Can send transactions
+* `Allowed`
+  * Can send transactions
+
+To check the role of an address run `readAllowList` function. It returns 0, 1 or 2, corresponding to the roles `None`, `Minter`, and `Admin` respectively.
+
+##### Interact with Native Minter
+Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and remix's environment is using `Injected Web3`.
+
+Create a `INativeMinter.sol` file and put the following code inside:
+```
+// (c) 2022-2023, Ava Labs, Inc. All rights reserved.
+// See the file LICENSE for licensing terms.
+
+// SPDX-License-Identifier: MIT
+
+pragma solidity >=0.8.0;
+
+interface NativeMinterInterface {
+    // Set [addr] to have the admin role over the minter list
+    function setAdmin(address addr) external;
+
+    // Set [addr] to be enabled on the minter list
+    function setEnabled(address addr) external;
+
+    // Set [addr] to have no role over the minter list
+    function setNone(address addr) external;
+
+    // Read the status of [addr]
+    function readAllowList(address addr) external view returns (uint256);
+
+    // Mint [amount] number of native coins and send to [addr]
+    function mintNativeCoin(address addr, uint256 amount) external;
+}
+```
+
+Load this interface at the address `0x0200000000000000000000000000000000000001`.
+
+There are 2 main roles for NativeMinter precompile; `Admin` and `Minter`.
+* `Admin` 
+  * Can add new admins and minters
+  * Can mint native token
+* `Minter`
+  * Can mint native token 
+
+To check the role of an address run `readAllowList` function. It returns 0, 1 or 2, corresponding to the roles `None`, `Minter`, and `Admin` respectively.
+
+
+
 
 ## Customize the Subnet
-  * `ChainId`: You want your `ChainId` parameter to be unique. To make sure that your subnet is secure against replay attacks. To see registered `ChainIds` you can check [chainlist.org](https://chainlist.org/). At the top right of the site make sure to turn on the button to include Testnets.
+  * `VM`: To understand what VMs are you can refer to [this](https://docs.avax.network/subnets#virtual-machines). To creat your custom VM you can refer to [this](https://docs.avax.network/subnets/create-a-virtual-machine-vm).
+  * `ChainId`: You want your `ChainId` parameter to be unique. To make sure that your subnet is secure against replay attacks. To see registered `ChainIds` you can check [chainlist.org](https://chainlist.org/). At the top right of the site make sure to turn on the button to include testnets.
   * `Gas Parameters`: Ava Labs recommends the low-low option and C-Chain currently uses this option. But, if you know what you are doing you are free to customize. Note that higher disk usage has some trade offs, it would require more processing power and cause it to be more expensive to maintain.
-  * `Airdrop Address`: You would not like to use the default address in production, that is recieving the 1 million tokens. Because it is a compromised wallet, which means that it's private key is well known by others. If you add a custom address to recieve airdrop. Avalanche-cli will ask you to give amount in AVAX, in that case do not enter the value thinking as in ethers but in gwei to correctly airdrop the amount you want. Example: To airdrop 1 whole token, as in one ether, you would enter the value 1000000000.
+  * `Airdrop Address`: You would not like to use the default address in production, that is recieving the 1 million tokens. Because it is a compromised wallet, which means that it's private key is well known by others. If you add a custom address to recieve airdrop. Avalanche-cli will ask you to give amount in AVAX, in that case do not enter the value thinking as in `ether` but in `gwei` to correctly airdrop the amount you want. As an example, to airdrop `1` whole token, as in one ether, you would enter the value `1000000000`.
   * `Precompiles`: You can learn what precompiles are by refering to [this](https://docs.avax.network/subnets/customize-a-subnet#precompiles).
 
 
@@ -222,34 +363,5 @@ You can check to logs which are located at `$HOME/.avalanche-cli/logs` or try to
 It means that you have deployed a subnet before and trying to deploy another one without stopping the initial one. To solve this issue, run:
 `avalanche network stop` and try to deploy your subnet again.
 
-
-### Optional Parts
-
-#### Add Avalanche Command Permanently
-
-//TODO: Fill this part from https://zwbetz.com/how-to-add-a-binary-to-your-path-on-macos-linux-windows/ and https://zwbetz.com/shell-config-file-on-mac/
-
-
-#### Subnet Custimization Options
-#### Currently supported precompiles
-
-- Native Contract Minter
-  // TODO: explain
-- Transaction Allow List
-  // TODO: explain
-- Contract Deploy Allow List
-  // TODO: explain
-
-#### Stuff
-Starting out with developing on subnets might be confusing at first.
-So we will be trying to start out by following the simplest path.
-Which will be creating a subnet on our local machine.
-The perfect tool for this purpose is `avalanche-cli` [ //TODO: Insert link to the avalanche-cli https://github.com/ava-labs/avalanche-cli]
-You can refer to `avalanche-cli` for more information about the tool.
-
-
-
-This command would print out general information about the tool and explain some usefull commands as well. If you would like to dig deeper refer to `this` //TODO: insert link of the avalanche-cli here
-
-Now it is the exciting time, let's create our subnet run:
-`avalanche subnet create <yourSubnetName>`
+### Step 4: Interact with the subnet
+When you try to interact with the subnet you might try to interact with an account that has no balance. Make sure that you have followed [Access Funded Accounts](####Access-Founded-Accounts). If you are having a problem interacting using Hardhat, make sure that the private key corresponds to an account which has balance.

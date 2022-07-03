@@ -90,9 +90,10 @@ Example walk through:
 
 - `Choose your VM`: SubnetEVM
 - `ChainId`: 676767
+- `Token symbol`: SUB
 - `How would you like to set the fees`: Low disk use...
 - `How would you like to distribute the funds`: Airdrop 1 million tokens to the default address
-- `Would you like to add a precompile to modify the EVM`: No
+- `Advanced: Would you like to add a precompile to modify the EVM`: No
 
 You have successfully created the genesis file for your subnet. You can read more about genesis [here](https://docs.avax.network/subnets/customize-a-subnet#genesis).
 
@@ -131,12 +132,15 @@ RPC URL:          http://127.0.0.1:37868/ext/bc/2ALrMJ74YHrq6gRXzZkmYaAx6tJhshyb
 Funded address:   0x8db97C7cEcE249c2b98bDC0226Cc4C2A57BF52FC with 1000000 (10^18) - private key: 56289e99c94b6912bfc12adc093c9b51124f0dc54ac7a766b2bc5ccf558d8027
 Network name:     subnetName
 Chain ID:         676767
-Currency Symbol:  TEST
+Currency Symbol:  SUB
 ```
 
 Make sure to save `Metamask connection details`. You will need the relevant information (RPC URL, Funded address, etc.) to interact with your subnet
 
-Important thing to keep in mind is that, now that you have deployed your subnet it has started running in your local machine. So, after you are done interacting with your subnet you can stop running it and when you want to interact with it again, you can start running it.
+Important thing to keep in mind is that, now that you have deployed your subnet it is already running in your local machine. So, you can interact with it immediately. 
+
+### Restarting Network
+After you are done interacting with your subnet you can stop running it and when you want to interact with it again, you can start running it.
 
 To stop running the subnet, you could run:
 
@@ -168,7 +172,7 @@ Example Values:
 Network Name: <subnetName>
 New RPC URL: http://127.0.0.1:37868/ext/bc/2ALrMJ74YHrq6gRXzZkmYaAx6tJhshybkWr8m71r56E7Cv25Qf/rpc
 ChainID: 676767
-Symbol: TEST
+Symbol: SUB
 ```
 
 #### Access Funded Accounts

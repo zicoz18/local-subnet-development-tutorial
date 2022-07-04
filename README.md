@@ -216,7 +216,7 @@ Example command:
 yarn deploy --network subnet
 ```
 
-### Step 5: Interact with precompiles (Optional)
+## Step 5: Interact with precompiles (Optional)
 
 If you have followed the tutorial as it is, you do not need this part. Since, in this tutorial we did not add any precompiles to the subnet. Therefore, this step is optional and helpful only if you are trying to extend your subnet with precompiles.
 

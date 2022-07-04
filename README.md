@@ -29,7 +29,7 @@ Steps to follow:
 
 ## Step 1: Install avalanche-cli
 
-To build avalanche-cli you have to first install golang since avalanche-cli is written in golang. Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
+To build avalanche-cli you have to first install golang. Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
 
 After downloading golang, to download avalanche-cli's latest version, run:
 

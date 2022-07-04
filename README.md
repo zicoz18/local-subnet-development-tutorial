@@ -29,7 +29,9 @@ Steps to follow:
 
 ## Step 1: Install avalanche-cli
 
-To build avalanche-cli you have to first install golang. Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
+To build avalanche-cli you have to first install golang. 
+
+Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
 
 After downloading golang, to download avalanche-cli's latest version, run:
 
@@ -369,7 +371,7 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 
 ## Customize the Subnet
 
-- `VM`: To understand what VMs are you can refer to [this](https://docs.avax.network/subnets#virtual-machines). To create your custom VM you can refer to [this](https://docs.avax.network/subnets/create-a-virtual-machine-vm).
+- `VM`: To understand what VMs are and create your own refer to [this](https://docs.avax.network/subnets/create-a-virtual-machine-vm).
 - `ChainId`: You want your `ChainId` parameter to be unique. To make sure that your subnet is secure against replay attacks. To see registered `ChainIds` you can check [chainlist.org](https://chainlist.org/). At the top right of the site make sure to turn on the button to include testnets.
 - `Gas Parameters`: Ava Labs recommends the low-low option and C-Chain currently uses this option. But, if you know what you are doing you are free to customize. Note that higher disk usage has some trade offs, it would require more processing power and cause it to be more expensive to maintain.
 - `Airdrop Address`: You would not like to use the default address in production, that is recieving the 1 million tokens. Because it is a compromised wallet, which means that its private key is well known by others. If you add a custom address to recieve airdrop. Avalanche-cli will ask you to give an amount in AVAX, in that case do not enter the value thinking as in `ether` but in `gwei` to correctly airdrop the amount you want. As an example, to airdrop `1` whole token, as in one ether, you would enter the value `1000000000`.

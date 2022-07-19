@@ -206,7 +206,10 @@ subnet: {
 }
 ```
 
+Example Updated File: [hardhat.config.ts](./hardhat.config.ts.md)
+
 Now you can run any commands ran in the tutorial with `--network subnet` parameter
+
 Example command:
 
 ```bash

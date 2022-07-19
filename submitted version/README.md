@@ -188,7 +188,7 @@ If you followed the exact steps in this tutorial, you would see that your balanc
 
 To interact with the subnet using Hardhat, refer to [Using Hardhat with the Avalanche C-Chain](https://docs.avax.network/dapps/smart-contracts/using-hardhat-with-the-avalanche-c-chain). It is very similar to interacting with C-Chain. You only have to change `hardhat.config.ts` file. Inside that file, find the exported js object and inside of it find `networks`. Add a new network which will be your subnet.
 
-```javascript
+```typescript
 subnet: {
   url: "<yourRpcUrl>",
   chainId: <yourChainId>,
@@ -198,7 +198,7 @@ subnet: {
 
 Example Values:
 
-```javascript
+```typescript
 subnet: {
   url: "http://127.0.0.1:37868/ext/bc/2ALrMJ74YHrq6gRXzZkmYaAx6tJhshybkWr8m71r56E7Cv25Qf/rpc",
   chainId: 676767,

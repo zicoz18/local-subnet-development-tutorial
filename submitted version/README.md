@@ -29,11 +29,11 @@ Steps to follow:
 
 ## Step 1: Install avalanche-cli
 
-To build avalanche-cli you have to first install golang. Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
+To build avalanche-cli you have to first install golang since avalanche-cli is written in golang. Follow the instructions here: [https://go.dev/doc/install](https://go.dev/doc/install).
 
 After downloading golang, to download avalanche-cli's latest version, run:
 
-```bash
+```
 curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s
 ```
 
@@ -41,7 +41,7 @@ curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts
 
 To add avalanche to PATH, run:
 
-```bash
+```
 cd bin
 export PATH=$PWD:$PATH
 ```
@@ -52,7 +52,7 @@ export PATH=$PWD:$PATH
 
 To download the binary to a specific directory, run:
 
-```bash
+```
 curl -sSfL https://raw.githubusercontent.com/ava-labs/avalanche-cli/main/scripts/install.sh | sh -s -- -b <relative-directory>
 ```
 
@@ -80,7 +80,7 @@ To add avalanche command to your path:
 
 To create the subnet, run:
 
-```bash
+```
 avalanche subnet create <subnetName>
 ```
 
@@ -90,22 +90,21 @@ Example walk through:
 
 - `Choose your VM`: SubnetEVM
 - `ChainId`: 676767
-- `Token symbol`: SUB
 - `How would you like to set the fees`: Low disk use...
 - `How would you like to distribute the funds`: Airdrop 1 million tokens to the default address
-- `Advanced: Would you like to add a precompile to modify the EVM`: No
+- `Would you like to add a precompile to modify the EVM`: No
 
 You have successfully created the genesis file for your subnet. You can read more about genesis [here](https://docs.avax.network/subnets/customize-a-subnet#genesis).
 
 To see details about the subnet, run:
 
-```bash
+```
 avalanche subnet describe <subnetName>
 ```
 
 To see the genesis file directly, run:
 
-```bash
+```
 avalanche subnet describe <subnetName> --genesis
 ```
 
@@ -113,7 +112,7 @@ avalanche subnet describe <subnetName> --genesis
 
 To deploy the subnet locally, run:
 
-```bash
+```
 avalanche subnet deploy <subnetName> -l
 ```
 
@@ -132,20 +131,16 @@ RPC URL:          http://127.0.0.1:37868/ext/bc/2ALrMJ74YHrq6gRXzZkmYaAx6tJhshyb
 Funded address:   0x8db97C7cEcE249c2b98bDC0226Cc4C2A57BF52FC with 1000000 (10^18) - private key: 56289e99c94b6912bfc12adc093c9b51124f0dc54ac7a766b2bc5ccf558d8027
 Network name:     subnetName
 Chain ID:         676767
-Currency Symbol:  SUB
+Currency Symbol:  TEST
 ```
 
 Make sure to save `Metamask connection details`. You will need the relevant information (RPC URL, Funded address, etc.) to interact with your subnet
 
-Important thing to keep in mind is that, now that you have deployed your subnet it is already running in your local machine. So, you can interact with it immediately.
-
-### Restarting Network
-
-After you are done interacting with your subnet you can stop running it and when you want to interact with it again, you can start running it.
+Important thing to keep in mind is that, now that you have deployed your subnet it has started running in your local machine. So, after you are done interacting with your subnet you can stop running it and when you want to interact with it again, you can start running it.
 
 To stop running the subnet, you could run:
 
-```bash
+```
 avalanche network stop
 ```
 
@@ -153,7 +148,7 @@ avalanche network stop
 
 To start running the subnet, you could run:
 
-```bash
+```
 avalanche network start
 ```
 
@@ -169,11 +164,11 @@ Firstly, we will be adding our subnet to [metamask](https://metamask.io/). To ad
 
 Example Values:
 
-```bash
+```
 Network Name: <subnetName>
 New RPC URL: http://127.0.0.1:37868/ext/bc/2ALrMJ74YHrq6gRXzZkmYaAx6tJhshybkWr8m71r56E7Cv25Qf/rpc
 ChainID: 676767
-Symbol: SUB
+Symbol: TEST
 ```
 
 #### Access Funded Accounts
@@ -192,7 +187,7 @@ If you followed the exact steps in this tutorial, you would see that your balanc
 
 To interact with the subnet using Hardhat, refer to [Using Hardhat with the Avalanche C-Chain](https://docs.avax.network/dapps/smart-contracts/using-hardhat-with-the-avalanche-c-chain). It is very similar to interacting with C-Chain. You only have to change `hardhat.config.ts` file. Inside that file, find the exported js object and inside of it find `networks`. Add a new network which will be your subnet.
 
-```js
+```
 subnet: {
   url: "<yourRpcUrl>",
   chainId: <yourChainId>,
@@ -202,7 +197,7 @@ subnet: {
 
 Example Values:
 
-```js
+```
 subnet: {
   url: "http://127.0.0.1:37868/ext/bc/2ALrMJ74YHrq6gRXzZkmYaAx6tJhshybkWr8m71r56E7Cv25Qf/rpc",
   chainId: 676767,
@@ -213,11 +208,11 @@ subnet: {
 Now you can run any commands ran in the tutorial with `--network subnet` parameter
 Example command:
 
-```bash
+```
 yarn deploy --network subnet
 ```
 
-## Step 5: Interact with precompiles (Optional)
+### Step 5: Interact with precompiles (Optional)
 
 If you have followed the tutorial as it is, you do not need this part. Since, in this tutorial we did not add any precompiles to the subnet. Therefore, this step is optional and helpful only if you are trying to extend your subnet with precompiles.
 
@@ -237,7 +232,7 @@ This tutorial will show how to interact with them using Remix.
 
    > If you are adding the `Transaction allow list` precompile, make sure to add the airdrop reciever address as admin so that the address with funds could send transactions.
 
-2. Open [remix](remix.ethereum.org) and make sure that your metamask is using your subnet and the remix's environment is using `Injected Web3`. Then, create a solidity file with respective recommended file name and add the respective precompile interface, refer to specific precompile to see details.
+2. Open [remix](https://remix.ethereum.org) and make sure that your metamask is using your subnet and the remix's environment is using `Injected Web3`. Then, create a solidity file with respective recommended file name and add the respective precompile interface, refer to specific precompile to see details.
 
 3. Load precompile to the respective address, refer to specific precompile to see their addresses.
 4. Call precompile functions
@@ -246,30 +241,7 @@ This tutorial will show how to interact with them using Remix.
 
 Recommended file name: `IAllowList.sol`
 
-Precompile Interface:
-
-```solidity
-// (c) 2022-2023, Ava Labs, Inc. All rights reserved.
-// See the file LICENSE for licensing terms.
-
-// SPDX-License-Identifier: MIT
-
-pragma solidity >=0.8.0;
-
-interface AllowListInterface {
-    // Set [addr] to have the admin role over the allow list
-    function setAdmin(address addr) external;
-
-    // Set [addr] to be enabled on the allow list
-    function setEnabled(address addr) external;
-
-    // Set [addr] to have no role over the allow list
-    function setNone(address addr) external;
-
-    // Read the status of [addr]
-    function readAllowList(address addr) external view returns (uint256);
-}
-```
+Precompile Interface: [Deployer Allow List](./precompiles/AllowList.md)
 
 Precompile address: `0x0200000000000000000000000000000000000000`
 
@@ -287,30 +259,7 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 
 Recommended file name: `ITxAllowList.sol`
 
-Precompile interface:
-
-```solidity
-// (c) 2022-2023, Ava Labs, Inc. All rights reserved.
-// See the file LICENSE for licensing terms.
-
-// SPDX-License-Identifier: MIT
-
-pragma solidity >=0.8.0;
-
-interface AllowListInterface {
-    // Set [addr] to have the admin role over the allow list
-    function setAdmin(address addr) external;
-
-    // Set [addr] to be enabled on the allow list
-    function setEnabled(address addr) external;
-
-    // Set [addr] to have no role over the allow list
-    function setNone(address addr) external;
-
-    // Read the status of [addr]
-    function readAllowList(address addr) external view returns (uint256);
-}
-```
+Precompile interface: [Transaction Allow List](./precompiles/AllowList.md)
 
 Precompile address: `0x0200000000000000000000000000000000000002`
 
@@ -328,33 +277,7 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 
 Recommended file name: `INativeMinter.sol`
 
-Precompile interface:
-
-```solidity
-// (c) 2022-2023, Ava Labs, Inc. All rights reserved.
-// See the file LICENSE for licensing terms.
-
-// SPDX-License-Identifier: MIT
-
-pragma solidity >=0.8.0;
-
-interface NativeMinterInterface {
-    // Set [addr] to have the admin role over the minter list
-    function setAdmin(address addr) external;
-
-    // Set [addr] to be enabled on the minter list
-    function setEnabled(address addr) external;
-
-    // Set [addr] to have no role over the minter list
-    function setNone(address addr) external;
-
-    // Read the status of [addr]
-    function readAllowList(address addr) external view returns (uint256);
-
-    // Mint [amount] number of native coins and send to [addr]
-    function mintNativeCoin(address addr, uint256 amount) external;
-}
-```
+Precompile interface: [Native Minter](./precompiles//NativeMinter.md)
 
 Precompile address: `0x0200000000000000000000000000000000000001`
 
@@ -370,7 +293,7 @@ To check the role of an address run `readAllowList` function. It returns 0, 1 or
 
 ## Customize the Subnet
 
-- `VM`: To understand what VMs are and create your own refer to [this](https://docs.avax.network/subnets/create-a-virtual-machine-vm).
+- `VM`: To understand what VMs are you can refer to [this](https://docs.avax.network/subnets#virtual-machines). To create your custom VM you can refer to [this](https://docs.avax.network/subnets/create-a-virtual-machine-vm).
 - `ChainId`: You want your `ChainId` parameter to be unique. To make sure that your subnet is secure against replay attacks. To see registered `ChainIds` you can check [chainlist.org](https://chainlist.org/). At the top right of the site make sure to turn on the button to include testnets.
 - `Gas Parameters`: Ava Labs recommends the low-low option and C-Chain currently uses this option. But, if you know what you are doing you are free to customize. Note that higher disk usage has some trade offs, it would require more processing power and cause it to be more expensive to maintain.
 - `Airdrop Address`: You would not like to use the default address in production, that is recieving the 1 million tokens. Because it is a compromised wallet, which means that its private key is well known by others. If you add a custom address to recieve airdrop. Avalanche-cli will ask you to give an amount in AVAX, in that case do not enter the value thinking as in `ether` but in `gwei` to correctly airdrop the amount you want. As an example, to airdrop `1` whole token, as in one ether, you would enter the value `1000000000`.
